@@ -67,6 +67,15 @@ with row3_1, _lock:
     data_load_state.text('')
     st.dataframe(df)
 
+    df.sort_values(by='Time', ascending=True, inplace=True)
+    df['time'] = pd.to_datetime(df.Time)
+    
+    plt.figure(figsize=(15, 15))
+    plt.plot(df['time'], df['Measurement Value'], 'o-', color='darkorange')
+    plt.tick_params(labelsize=15)
+    plt.xlabel('Time (YY/MM)', fontsize=18)
+    plt.ylabel('Measurement value (whatevermol)', fontsize=18)
+
 
     # hist_data = [df['Measurement Value'], df['Time']]
     # group_labels = ['Chl Concentration', 'Date']
