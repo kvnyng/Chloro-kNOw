@@ -3,41 +3,33 @@ import pandas as pd
 
 
 def cleanChlData():
-    df = pd.read_csv('data/chl.csv')
-    del df['Reference Description']
-    del df['Reference time']
-    del df['Reference value']
-    del df['Indicator Value']
-    del df['Color code']
-    del df['Sub-AOI']
-    del df['Rule']
-    df["Time"] = pd.to_datetime(df['Time'])
-    geometry = [list(map(float, x.split(','))) for x in df.AOI]
+    chl_df = pd.read_csv('data/chl.csv')
+    chl_df["Time"] = pd.to_datetime(chl_df['Time'])
+    geometry = [list(map(float, x.split(','))) for x in chl_df.AOI]
     lat = pd.Series([x[0] for x in geometry])
     lon = pd.Series([x[1] for x in geometry])
-    df['latitude'] = lat
-    df['longitude'] = lon
-    df['latitude']=pd.to_numeric(df['latitude'])
-    df['longitude']=pd.to_numeric(df['longitude'])
-    df['Measurement Value']=pd.to_numeric(df['Measurement Value'])
-    df = df[df['Measurement Value'].notna()]
-    cleaned = True
+    chl_df['latitude'] = lat
+    chl_df['longitude'] = lon
+    chl_df['latitude']=pd.to_numeric(chl_df['latitude'])
+    chl_df['longitude']=pd.to_numeric(chl_df['longitude'])
+    chl_df['Measurement Value']=pd.to_numeric(chl_df['Measurement Value'])
+    chl_df = chl_df[chl_df['Measurement Value'].notna()]
+    chl_df.rename(columns = {'Measurement Value':'Chl_concentration'}, inplace = True)
+    chl_df = chl_df[['Time', 'Country', 'Region', 'Chl_concentration', 'latitude', 'longitude']]
+    return chl_df
 
-    return df
 
+def veniceData():
+    chl_df = cleanChlData()
+    chl_df = chl_df.loc[chl_df['Country'] == "IT"]
+    return chl_df
 
-def veniceChlData():
-    df = cleanChlData()
-    df = df.loc[df['Country'] == "IT"]
-    return df
+def tokyoData():
+    chl_df = cleanChlData()
+    chl_df = chl_df.loc[chl_df['Country'] == "JP"]
+    return chl_df
 
-def tokyoChlData():
-    df = cleanChlData()
-    df = df.loc[df['Country'] == "JP"]
-    df = df.astype({'Measurement Value': 'int'})
-    return df
-
-def newYorkChlData():
-    df = cleanChlData()
-    df = df.loc[df['Country'] == "US"]
-    return df
+def newYorkData():
+    chl_df = cleanChlData()
+    chl_df = chl_df.loc[chl_df['Country'] == "US"]
+    return chl_df
