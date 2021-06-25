@@ -13,7 +13,10 @@ import gender_guesser.detector as gender
 from streamlit_lottie import st_lottie
 import requests
 
-from models.process_data import cleanChlData
+import matplotlib.pyplot as plt
+import plotly.figure_factory as ff
+
+from models.process_data import tokyoChlData
 st.set_page_config(layout="wide")
 
 def load_lottieurl(url: str):
@@ -22,8 +25,8 @@ def load_lottieurl(url: str):
         return None
     return r.json()
 
-lottie_book = load_lottieurl('https://assets6.lottiefiles.com/packages/lf20_izy5ndvp.json')
-st_lottie(lottie_book, speed=1, height=200, key="initial")
+# lottie_book = load_lottieurl('https://assets6.lottiefiles.com/packages/lf20_izy5ndvp.json')
+# st_lottie(lottie_book, speed=1, height=200, key="initial")
 
 
 matplotlib.use("agg")
@@ -40,7 +43,7 @@ with row0_2:
     st.write('')
 
 row0_2.subheader(
-    'Soulution by the [Nimbus Team](http://www.example.com)')
+    'Soulution by the [Nimbus Team](https://github.com/bykevinyang/Nimbus)')
 
 row1_spacer1, row1_1, row1_spacer2 = st.beta_columns((.1, 3.2, .1))
 
@@ -53,7 +56,22 @@ row3_space1, row3_1, row3_space2, row3_2, row3_space3 = st.beta_columns(
     (.1, 1, .1, 1, .1))
 
 with row3_1, _lock:
-    st.subheader("Chlorophyll-A Concentration in Tokyo")
+    st.subheader("Tokyo Data")
+
+    # Load Tokyo data.
+    @st.cache
+    def load_data():
+        return  tokyoChlData()
+    data_load_state = st.text('Loading data...')
+    df = load_data()
+    data_load_state.text('')
+    st.dataframe(df)
+
+
+    # hist_data = [df['Measurement Value'], df['Time']]
+    # group_labels = ['Chl Concentration', 'Date']
+    # fig = ff.create_distplot(hist_data, group_labels, bin_size=[10, 25])
+    # st.plotly_chart(fig, use_container_width=True)
     # ax = fig.subplots()
     # if has_records:
     #     year_df = pd.DataFrame(
@@ -72,8 +90,14 @@ with row3_1, _lock:
 
 
 with row3_2, _lock:
-    st.subheader("Covid cases in Tokyo")
-    fig = Figure()
+    st.subheader("Plot of Tokyo's Data")
+    @st.cache
+    def load_data():
+        return  tokyoChlData()
+    data_load_state = st.text('Loading data...')
+    df = load_data()
+    data_load_state.text('')
+    # PUT WHAT YOU WANT (THE PLOT)
     # ax = fig.subplots()
     # sns.histplot(pd.to_numeric(df['book.publication_year'], errors='coerce').dropna(
     # ).astype(np.int64), kde_kws={'clip': (0.0, 2020)}, ax=ax, kde=True)

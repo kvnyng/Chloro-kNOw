@@ -11,6 +11,7 @@ def cleanChlData():
     del df['Color code']
     del df['Sub-AOI']
     del df['Rule']
+    df["Time"] = pd.to_datetime(df['Time'])
     geometry = [list(map(float, x.split(','))) for x in df.AOI]
     lat = pd.Series([x[0] for x in geometry])
     lon = pd.Series([x[1] for x in geometry])
@@ -33,6 +34,7 @@ def veniceChlData():
 def tokyoChlData():
     df = cleanChlData()
     df = df.loc[df['Country'] == "JP"]
+    df = df.astype({'Measurement Value': 'int'})
     return df
 
 def newYorkChlData():
