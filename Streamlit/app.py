@@ -66,7 +66,7 @@ with row3_1, _lock:
     chl_df_tokyo = load_data()
     data_load_state.text('')
     st.dataframe(chl_df_tokyo)
-
+    year_to_filter = st.slider('Filter years', 2019, 2021, 2021, key='tokyo')  # min: 0h, max: 23h, default: 17h
 
     # st.markdown("Looks like the average publication date is around **{}**, with your oldest book being **{}** and your youngest being ****.")
     # st.markdown("Note that the publication date on Goodreads is the **last** publication date, so the data is altered for any book that has been republished by a publisher.")
@@ -82,6 +82,7 @@ with row3_2, _lock:
     data_load_state.text('')
     chl_df_tokyo.sort_values(by='Time', ascending=True, inplace=True)
     chl_df_tokyo['time'] = pd.to_datetime(chl_df_tokyo.Time)
+    chl_df_tokyo = chl_df_tokyo[chl_df_tokyo['time'].dt.year == year_to_filter]
 
     fig = Figure()
     ax = fig.subplots()
@@ -112,6 +113,7 @@ with row4_1, _lock:
     venice_df_tokyo = load_data()
     data_load_state.text('')
     st.dataframe(venice_df_tokyo)
+    # year_to_filter = st.slider('Filter years', 2019, 2021, 2021, key='venice')  # min: 0h, max: 23h, default: 17h
 
 
 with row4_2, _lock:
@@ -124,6 +126,7 @@ with row4_2, _lock:
     data_load_state.text('')
     venice_df_tokyo.sort_values(by='Time', ascending=True, inplace=True)
     venice_df_tokyo['time'] = pd.to_datetime(venice_df_tokyo.Time)
+    # venice_df_tokyo = venice_df_tokyo[chl_df_tokyo['time'].dt.year == year_to_filter]
 
     fig = Figure()
     ax = fig.subplots()
@@ -151,6 +154,7 @@ with row5_1, _lock:
     new_york_df_tokyo = load_data()
     data_load_state.text('')
     st.dataframe(new_york_df_tokyo)
+    # year_to_filter = st.slider('Filter years', 2019, 2021, 2021, key='new-york')  # min: 0h, max: 23h, default: 17h
 
 
 with row5_2, _lock:
@@ -163,6 +167,7 @@ with row5_2, _lock:
     data_load_state.text('')
     new_york_df_tokyo.sort_values(by='Time', ascending=True, inplace=True)
     new_york_df_tokyo['time'] = pd.to_datetime(new_york_df_tokyo.Time)
+    # new_york_df_tokyo = new_york_df_tokyo[chl_df_tokyo['time'].dt.year == year_to_filter]
 
     fig = Figure()
     ax = fig.subplots()

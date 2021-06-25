@@ -27,6 +27,11 @@ def veniceData():
 def tokyoData():
     chl_df = cleanChlData()
     chl_df = chl_df.loc[chl_df['Country'] == "JP"]
+
+    tsm_df = pd.read_csv('data/tokyo_TSM.csv')
+    tsm_df = tsm_df[['measurement']]
+    chl_df = chl_df.join(tsm_df["measurement"])
+    chl_df = chl_df.reset_index(drop=True)
     return chl_df
 
 def newYorkData():
