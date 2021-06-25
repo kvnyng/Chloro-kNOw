@@ -3,7 +3,7 @@ import pandas as pd
 
 
 def cleanChlData():
-    df = pd.read_csv('chl.csv')
+    df = pd.read_csv('data/chl.csv')
     del df['Reference Description']
     del df['Reference time']
     del df['Reference value']

@@ -53,6 +53,7 @@ row3_space1, row3_1, row3_space2, row3_2, row3_space3 = st.beta_columns(
     (.1, 1, .1, 1, .1))
 
 with row3_1, _lock:
+    st.subheader("Chlorophyll-A Concentration in Tokyo")
     # ax = fig.subplots()
     # if has_records:
     #     year_df = pd.DataFrame(
