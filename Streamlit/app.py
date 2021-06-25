@@ -13,6 +13,7 @@ import gender_guesser.detector as gender
 from streamlit_lottie import st_lottie
 import requests
 
+from models.process_data import cleanChlData
 st.set_page_config(layout="wide")
 
 def load_lottieurl(url: str):
@@ -52,16 +53,6 @@ row3_space1, row3_1, row3_space2, row3_2, row3_space3 = st.beta_columns(
     (.1, 1, .1, 1, .1))
 
 with row3_1, _lock:
-    st.subheader('Chlorophyll-A Concentration in Tokyo')
-    df = pd.read_csv('chl.csv')
-    del df['Reference Description']
-    del df['Reference time']
-    del df['Reference value']
-    del df['Indicator Value']
-    del df['Color code']
-    del df['Sub-AOI']
-    del df['Rule']
-    df = df[df['Measurement Value'].notna()]
     # ax = fig.subplots()
     # if has_records:
     #     year_df = pd.DataFrame(
