@@ -55,31 +55,29 @@ st.write('')
 row3_space1, row3_1, row3_space2, row3_2, row3_space3 = st.beta_columns(
     (.1, 1, .1, 1, .1))
 
+
+# TOKYO COMPONENT
 with row3_1, _lock:
     st.subheader("Tokyo Data")
 
     # Load Tokyo data.
     @st.cache(allow_output_mutation=True)
     def load_data():
-        return  tokyoData()
+        return tokyoData()
     data_load_state = st.text('Loading data...')
-    chl_df_tokyo = load_data()
+    chl_df_tokyo = load_data()[0]
+    tsm_df_tokyo = load_data()[1]
     data_load_state.text('')
-    st.dataframe(chl_df_tokyo)
+
+    st.dataframe(load_data()[2])
     year_to_filter = st.slider('Filter years', 2019, 2021, 2021, key='tokyo')  # min: 0h, max: 23h, default: 17h
 
     # st.markdown("Looks like the average publication date is around **{}**, with your oldest book being **{}** and your youngest being ****.")
-    # st.markdown("Note that the publication date on Goodreads is the **last** publication date, so the data is altered for any book that has been republished by a publisher.")
+    # st.markdown("Note that the publication date on Goodreads is the **last** publication date, so Chl Concentration is altered for any book that has been republished by a publisher.")
 
 
 with row3_2, _lock:
     st.subheader("Plot of Tokyo's Data")
-    @st.cache(allow_output_mutation=True)
-    def load_data():
-        return  tokyoData()
-    data_load_state = st.text('Loading data...')
-    chl_df_tokyo = load_data()
-    data_load_state.text('')
     chl_df_tokyo.sort_values(by='Time', ascending=True, inplace=True)
     chl_df_tokyo['time'] = pd.to_datetime(chl_df_tokyo.Time)
     chl_df_tokyo = chl_df_tokyo[chl_df_tokyo['time'].dt.year == year_to_filter]
@@ -88,7 +86,7 @@ with row3_2, _lock:
     ax = fig.subplots()
     # plt.figure(figsize=(15, 15))
 
-    ax.plot(chl_df_tokyo['Time'], chl_df_tokyo['Chl_concentration'], color='darkorange',  label='the data')
+    ax.plot(chl_df_tokyo['Time'], chl_df_tokyo['Measurement Value'], color='darkorange',  label='Chl Concentration')
     ax.legend()
     ax.tick_params(labelsize=7)
     ax.set_xlabel('Time (YY/MM)', fontsize=10)
@@ -96,7 +94,7 @@ with row3_2, _lock:
     st.pyplot(fig)
 
     # st.markdown("Looks like the average publication date is around **{}**, with your oldest book being **{}** and your youngest being ****.")
-    # st.markdown("Note that the publication date on Goodreads is the **last** publication date, so the data is altered for any book that has been republished by a publisher.")
+    # st.markdown("Note that the publication date on Goodreads is the **last** publication date, so Chl Concentration is altered for any book that has been republished by a publisher.")
 
 
 st.write('')
@@ -104,35 +102,30 @@ st.markdown("""---""")
 row4_space1, row4_1, row4_space2, row4_2, row4_space3 = st.beta_columns(
     (.1, 1, .1, 1, .1))
 
+# VENICE COMPONENT
 with row4_1, _lock:
     st.subheader("Venice Data")
     @st.cache(allow_output_mutation=True)
     def load_data():
         return veniceData()
-    data_load_state = st.text('Loading data...')
-    venice_df_tokyo = load_data()
+    chl_df_venice = load_data()[0]
+    tsm_df_venice = load_data()[1]
     data_load_state.text('')
-    st.dataframe(venice_df_tokyo)
+    st.dataframe(load_data()[2])
     # year_to_filter = st.slider('Filter years', 2019, 2021, 2021, key='venice')  # min: 0h, max: 23h, default: 17h
 
 
 with row4_2, _lock:
     st.subheader("Plot of Venice's Data")
-    @st.cache(allow_output_mutation=True)
-    def load_data():
-        return  veniceData()
-    data_load_state = st.text('Loading data...')
-    venice_df_tokyo = load_data()
-    data_load_state.text('')
-    venice_df_tokyo.sort_values(by='Time', ascending=True, inplace=True)
-    venice_df_tokyo['time'] = pd.to_datetime(venice_df_tokyo.Time)
-    # venice_df_tokyo = venice_df_tokyo[chl_df_tokyo['time'].dt.year == year_to_filter]
+    chl_df_venice.sort_values(by='Time', ascending=True, inplace=True)
+    chl_df_venice['time'] = pd.to_datetime(chl_df_venice.Time)
+    # chl_df_venice = chl_df_venice[chl_df_tokyo['time'].dt.year == year_to_filter]
 
     fig = Figure()
     ax = fig.subplots()
     # plt.figure(figsize=(15, 15))
 
-    ax.plot(venice_df_tokyo['Time'], venice_df_tokyo['Chl_concentration'], color='darkorange',  label='the data')
+    ax.plot(chl_df_venice['Time'], chl_df_venice['Measurement Value'], color='darkorange',  label='Chl Concentration')
     ax.legend()
     ax.tick_params(labelsize=7)
     ax.set_xlabel('Time (YY/MM)', fontsize=10)
@@ -145,35 +138,31 @@ st.markdown("""---""")
 row5_space1, row5_1, row5_space2, row5_2, row5_space3 = st.beta_columns(
     (.1, 1, .1, 1, .1))
 
+# NEW YORK COMPONENT
 with row5_1, _lock:
     st.subheader("New York Data")
     @st.cache(allow_output_mutation=True)
     def load_data():
         return newYorkData()
     data_load_state = st.text('Loading data...')
-    new_york_df_tokyo = load_data()
+    chl_df_newyork = load_data()[0]
+    tsm_df_newyork = load_data()[1]
     data_load_state.text('')
-    st.dataframe(new_york_df_tokyo)
+    st.dataframe(load_data()[2])
     # year_to_filter = st.slider('Filter years', 2019, 2021, 2021, key='new-york')  # min: 0h, max: 23h, default: 17h
 
 
 with row5_2, _lock:
     st.subheader("Plot of New-York's Data")
-    @st.cache(allow_output_mutation=True)
-    def load_data():
-        return  newYorkData()
-    data_load_state = st.text('Loading data...')
-    new_york_df_tokyo = load_data()
-    data_load_state.text('')
-    new_york_df_tokyo.sort_values(by='Time', ascending=True, inplace=True)
-    new_york_df_tokyo['time'] = pd.to_datetime(new_york_df_tokyo.Time)
-    # new_york_df_tokyo = new_york_df_tokyo[chl_df_tokyo['time'].dt.year == year_to_filter]
+    chl_df_newyork.sort_values(by='Time', ascending=True, inplace=True)
+    chl_df_newyork['time'] = pd.to_datetime(chl_df_newyork.Time)
+    # chl_df_newyork = chl_df_newyork[chl_df_tokyo['time'].dt.year == year_to_filter]
 
     fig = Figure()
     ax = fig.subplots()
     # plt.figure(figsize=(15, 15))
 
-    ax.plot(new_york_df_tokyo['Time'], new_york_df_tokyo['Chl_concentration'], color='darkorange',  label='the data')
+    ax.plot(chl_df_newyork['Time'], chl_df_newyork['Measurement Value'], color='darkorange',  label='Chl Concentration')
     ax.legend()
     ax.tick_params(labelsize=7)
     ax.set_xlabel('Time (YY/MM)', fontsize=10)
