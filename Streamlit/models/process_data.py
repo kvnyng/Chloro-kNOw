@@ -24,7 +24,7 @@ def veniceData():
     venice_df = df.loc[df['Country'] == "IT"]
     venice_chl = venice_df.loc[venice_df['City'] == "Venice, Chl-a"]
     venice_tsm = venice_df.loc[venice_df['City'] == "Venice, TSM"]
-    print(venice_chl)
+    venice_df = venice_df.reset_index(drop=True)
     return venice_chl, venice_tsm, venice_df
 
 def tokyoData():
@@ -32,6 +32,7 @@ def tokyoData():
     tokyo_df = df.loc[df['Country'] == "JP"]
     tokyo_chl = tokyo_df.loc[tokyo_df['City'] == "Tokyo, Chl-a"]
     tokyo_tsm = tokyo_df.loc[tokyo_df['City'] == "Tokyo, TSM"]
+    tokyo_df = tokyo_df.reset_index(drop=True)
     return tokyo_chl, tokyo_tsm, tokyo_df
 
 def newYorkData():
@@ -39,4 +40,5 @@ def newYorkData():
     newyork_df = df.loc[df['Country'] == "US"]
     newyork_chl = newyork_df.loc[newyork_df['City'] == "New York, Chl-a"]
     newyork_tsm = newyork_df.loc[newyork_df['City'] == "New York, TSM"]
+    newyork_df = newyork_df.reset_index(drop=True)
     return newyork_chl, newyork_tsm, newyork_df

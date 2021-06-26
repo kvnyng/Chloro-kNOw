@@ -12,6 +12,7 @@ from PIL import Image
 import gender_guesser.detector as gender
 from streamlit_lottie import st_lottie
 import requests
+import altair as alt
 
 import matplotlib.pyplot as plt
 import plotly.figure_factory as ff
@@ -56,6 +57,21 @@ row3_space1, row3_1, row3_space2, row3_2, row3_space3 = st.beta_columns(
     (.1, 1, .1, 1, .1))
 
 
+st.cache(persist=True)
+def load_data():
+    covid19 = pd.read_csv('https://covid.ourworldindata.org/data/owid-covid-data.csv', encoding='ISO-8859-1',thousands='.', decimal=',', engine='python')
+    covid19['date'] = pd.to_datetime(covid19['date'],format = '%Y-%m-%d')
+    return covid19
+covid19 = load_data()
+covid19['new_tests'] = covid19['new_tests'].replace(np.nan, '')
+covid19['new_cases'] = covid19['new_cases'].replace(np.nan, '')
+covid19['new_deaths'] = covid19['new_deaths'].replace(np.nan, '')
+covid19['new_vaccinations'] = covid19['new_vaccinations'].replace(np.nan, '')
+covid19['total_cases'] = covid19['total_cases'].replace(np.nan, '')
+covid19['total_vaccinations'] = covid19['total_vaccinations'].replace(np.nan, '')
+covid19['people_fully_vaccinated'] = covid19['people_fully_vaccinated'].replace(np.nan, '')
+covid19['total_deaths'] = covid19['total_deaths'].replace(np.nan, '')
+
 # TOKYO COMPONENT
 with row3_1, _lock:
     st.subheader("Tokyo Data")
@@ -70,17 +86,27 @@ with row3_1, _lock:
     data_load_state.text('')
 
     st.dataframe(load_data()[2])
-    year_to_filter = st.slider('Filter years', 2019, 2021, 2021, key='tokyo')  # min: 0h, max: 23h, default: 17h
+    # year_to_filter = st.slider('Filter years', 2019, 2021, 2021, key='tokyo')  # min: 0h, max: 23h, default: 17h
 
     # st.markdown("Looks like the average publication date is around **{}**, with your oldest book being **{}** and your youngest being ****.")
     # st.markdown("Note that the publication date on Goodreads is the **last** publication date, so Chl Concentration is altered for any book that has been republished by a publisher.")
+    st.write('')
+    st.write('')
+    country = 'Japan'
+    st.header("Japan Covid Cases")
+    t_cases = alt.Chart(covid19[covid19["location"]==country]).encode(
+        x="date",y="total_cases",tooltip=["date:T","location:N","total_cases:Q"]).interactive()
+
+    st.altair_chart(t_cases.mark_line(color='orange'))
+
+
 
 
 with row3_2, _lock:
     st.subheader("Plot of Tokyo's Data")
     chl_df_tokyo.sort_values(by='Time', ascending=True, inplace=True)
     chl_df_tokyo['time'] = pd.to_datetime(chl_df_tokyo.Time)
-    chl_df_tokyo = chl_df_tokyo[chl_df_tokyo['time'].dt.year == year_to_filter]
+    # chl_df_tokyo = chl_df_tokyo[chl_df_tokyo['time'].dt.year == year_to_filter]
 
     fig = Figure()
     ax = fig.subplots()
@@ -92,18 +118,18 @@ with row3_2, _lock:
     ax.set_xlabel('Time (YY/MM)', fontsize=10)
     ax.set_ylabel('Measurement value (molarity)', fontsize=10)
     st.pyplot(fig)
-    
-    
-    fig = Figure()
-    ax = fig.subplots()
-    # plt.figure(figsize=(15, 15))
 
-    ax.plot(tsm_df_tokyo['Time'], tsm_df_tokyo['Measurement Value'], color='darkorange',  label='Chl Concentration')
-    ax.legend()
-    ax.tick_params(labelsize=7)
-    ax.set_xlabel('Time (YY/MM)', fontsize=10)
-    ax.set_ylabel('Measurement value (molarity)', fontsize=10)
-    st.pyplot(fig)
+
+    # fig = Figure()
+    # ax = fig.subplots()
+    # # plt.figure(figsize=(15, 15))
+    #
+    # ax.plot(tsm_df_tokyo['Time'], tsm_df_tokyo['Measurement Value'], color='darkorange',  label='Chl Concentration')
+    # ax.legend()
+    # ax.tick_params(labelsize=7)
+    # ax.set_xlabel('Time (YY/MM)', fontsize=10)
+    # ax.set_ylabel('Measurement value (molarity)', fontsize=10)
+    # st.pyplot(fig)
 
     # st.markdown("Looks like the average publication date is around **{}**, with your oldest book being **{}** and your youngest being ****.")
     # st.markdown("Note that the publication date on Goodreads is the **last** publication date, so Chl Concentration is altered for any book that has been republished by a publisher.")
@@ -125,7 +151,12 @@ with row4_1, _lock:
     data_load_state.text('')
     st.dataframe(load_data()[2])
     # year_to_filter = st.slider('Filter years', 2019, 2021, 2021, key='venice')  # min: 0h, max: 23h, default: 17h
+    country = 'Italy'
+    st.header("Italy Covid Cases")
+    t_cases = alt.Chart(covid19[covid19["location"]==country]).encode(
+        x="date",y="total_cases",tooltip=["date:T","location:N","total_cases:Q"]).interactive()
 
+    st.altair_chart(t_cases.mark_line(color='orange'))
 
 with row4_2, _lock:
     st.subheader("Plot of Venice's Data")
@@ -162,7 +193,12 @@ with row5_1, _lock:
     data_load_state.text('')
     st.dataframe(load_data()[2])
     # year_to_filter = st.slider('Filter years', 2019, 2021, 2021, key='new-york')  # min: 0h, max: 23h, default: 17h
+    country = 'United States'
+    st.header("United States Covid Cases")
+    t_cases = alt.Chart(covid19[covid19["location"]==country]).encode(
+        x="date",y="total_cases",tooltip=["date:T","location:N","total_cases:Q"]).interactive()
 
+    st.altair_chart(t_cases.mark_line(color='orange'))
 
 with row5_2, _lock:
     st.subheader("Plot of New-York's Data")
