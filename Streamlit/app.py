@@ -92,6 +92,18 @@ with row3_2, _lock:
     ax.set_xlabel('Time (YY/MM)', fontsize=10)
     ax.set_ylabel('Measurement value (molarity)', fontsize=10)
     st.pyplot(fig)
+    
+    
+    fig = Figure()
+    ax = fig.subplots()
+    # plt.figure(figsize=(15, 15))
+
+    ax.plot(tsm_df_tokyo['Time'], tsm_df_tokyo['Measurement Value'], color='darkorange',  label='Chl Concentration')
+    ax.legend()
+    ax.tick_params(labelsize=7)
+    ax.set_xlabel('Time (YY/MM)', fontsize=10)
+    ax.set_ylabel('Measurement value (molarity)', fontsize=10)
+    st.pyplot(fig)
 
     # st.markdown("Looks like the average publication date is around **{}**, with your oldest book being **{}** and your youngest being ****.")
     # st.markdown("Note that the publication date on Goodreads is the **last** publication date, so Chl Concentration is altered for any book that has been republished by a publisher.")
