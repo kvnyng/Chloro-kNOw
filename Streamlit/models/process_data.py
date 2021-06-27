@@ -1,9 +1,11 @@
 import pandas as pd
-import streamlit as st
+# import streamlit as st
+from matplotlib import pyplot as plt
 
 
 def cleanChlData():
-    df = pd.read_csv('data/chl.csv')
+    # df = pd.read_csv('data/chl.csv') # Use this for linux machines
+    df = pd.read_csv('Streamlit\\data\\chl.csv')
     df["Time"] = pd.to_datetime(df['Time'])
     geometry = [list(map(float, x.split(','))) for x in df.AOI]
     lat = pd.Series([x[0] for x in geometry])
@@ -42,3 +44,31 @@ def newYorkData():
     newyork_tsm = newyork_df.loc[newyork_df['City'] == "New York, TSM"]
     newyork_df = newyork_df.reset_index(drop=True)
     return newyork_chl, newyork_tsm, newyork_df
+
+def movingAverage():
+    LAGTIME = 5 # In months
+    smoothedValues = []
+    
+    cities = [("Venice", veniceData()[0]['Measurement Value']), ("New York", newYorkData()[0]['Measurement Value']), ("Tokoyo", tokyoData()[0]['Measurement Value'])]
+
+    for city in cities:
+        measurements = city[1].tolist()
+        ema = calculate_ema(measurements, LAGTIME)
+        smoothedValues.append((city[0], ema))
+    
+    for p in smoothedValues:
+        plt.plot(p[1], label=p[0])
+
+    plt.show()
+
+    return ema
+
+def calculate_ema(data, LAGTIME, smoothing=2):
+    ema = [sum(data[:LAGTIME]) / LAGTIME]
+    for mes in data[LAGTIME:]:
+        ema.append((mes * (smoothing / (1 + LAGTIME))) + ema[-1] * (1 - (smoothing / (1 + LAGTIME))))
+
+    return ema
+
+movingAverage()
+
