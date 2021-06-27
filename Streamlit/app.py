@@ -14,7 +14,7 @@ from models.process_data import tokyoData, veniceData, newYorkData
 
 
 st.set_page_config(
-        page_title="Nimbus Soulution",
+        page_title="Nimbus Solution ",
         page_icon=":globe_with_meridians:",
         layout="wide")
 
@@ -47,7 +47,7 @@ def main():
         st.write('')
 
     row0_2.subheader(
-        'Soulution by the [Nimbus Team](https://github.com/bykevinyang/Nimbus)')
+        'Solution by the [Nimbus Team](https://github.com/bykevinyang/Nimbus)')
 
     row1_spacer1, row1_1, row1_spacer2 = st.beta_columns((.1, 3.2, .1))
 
