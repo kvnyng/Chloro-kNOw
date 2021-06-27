@@ -4,8 +4,7 @@ from matplotlib import pyplot as plt
 
 
 def cleanChlData():
-    # df = pd.read_csv('data/chl.csv') # Use this for linux machines
-    df = pd.read_csv('Streamlit\\data\\chl.csv')
+    df = pd.read_csv('data\chl.csv')
     df["Time"] = pd.to_datetime(df['Time'])
     geometry = [list(map(float, x.split(','))) for x in df.AOI]
     lat = pd.Series([x[0] for x in geometry])
@@ -19,6 +18,16 @@ def cleanChlData():
     # df.rename(columns = {'Measurement Value':'Measurement Value'}, inplace = True)
     df = df[['Time', 'Country', 'Region', 'Measurement Value', 'latitude', 'longitude', 'City']]
     return df
+
+
+def cleanAirQualityData():
+    df = pd.read_csv('data/tokyo_air_quality.csv')
+    df["time"] = pd.to_datetime(df['time'])
+    df['measurement']=pd.to_numeric(df['measurement'])
+    df = df[df['measurement'].notna()]
+    df = df[['time', 'measurement', 'eoSensor', 'inputData', 'colorCode']]
+    return df
+
 
 
 def veniceData():
@@ -35,7 +44,10 @@ def tokyoData():
     tokyo_chl = tokyo_df.loc[tokyo_df['City'] == "Tokyo, Chl-a"]
     tokyo_tsm = tokyo_df.loc[tokyo_df['City'] == "Tokyo, TSM"]
     tokyo_df = tokyo_df.reset_index(drop=True)
-    return tokyo_chl, tokyo_tsm, tokyo_df
+
+    tokyo_air = cleanAirQualityData()
+    tokyo_air = tokyo_air.reset_index(drop=True)
+    return tokyo_chl, tokyo_air, tokyo_df
 
 def newYorkData():
     df = cleanChlData()
@@ -47,13 +59,13 @@ def newYorkData():
 
 def movingAverage():
     LAGTIME = 5 # In months
-    
+
     output = []
 
     df_venice = veniceData()[0]
     df_newYork = newYorkData()[0]
     df_tokyo = tokyoData()[0]
-    
+
     mapping = {
         "Venice" : df_venice,
         "New York" : df_newYork,
@@ -68,9 +80,11 @@ def movingAverage():
         df = mapping[city[0]]
         df["Smoothed"] = ema
         output.append(("Venice", df))
-    
+
+
     # Ouputs tuple in the form of [(City Name, Data Frame),(City Name, Data Frame),(City Name, Data Frame)]
-    return output
+    print(type())
+    return d
 
 
     # for p in smoothedValues:
@@ -80,11 +94,8 @@ def movingAverage():
 
 def calculate_ema(data, LAGTIME, smoothing=2):
     ema = [sum(data[:LAGTIME]) / LAGTIME]
-    
+
     for mes in data[1:]:
         ema.append((mes * (smoothing / (1 + LAGTIME))) + ema[-1] * (1 - (smoothing / (1 + LAGTIME))))
 
     return ema
-
-movingAverage()
-
