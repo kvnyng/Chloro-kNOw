@@ -47,25 +47,41 @@ def newYorkData():
 
 def movingAverage():
     LAGTIME = 5 # In months
-    smoothedValues = []
     
-    cities = [("Venice", veniceData()[0]['Measurement Value']), ("New York", newYorkData()[0]['Measurement Value']), ("Tokoyo", tokyoData()[0]['Measurement Value'])]
+    output = []
+
+    df_venice = veniceData()[0]
+    df_newYork = newYorkData()[0]
+    df_tokyo = tokyoData()[0]
+    
+    mapping = {
+        "Venice" : df_venice,
+        "New York" : df_newYork,
+        "Tokyo" : df_tokyo
+        }
+
+    cities = [("Venice", df_venice['Measurement Value']), ("New York", df_newYork['Measurement Value']), ("Tokyo", df_tokyo['Measurement Value'])]
 
     for city in cities:
         measurements = city[1].tolist()
-        ema = calculate_ema(measurements, LAGTIME)
-        smoothedValues.append((city[0], ema))
+        ema = calculate_ema(measurements, LAGTIME, 4)
+        df = mapping[city[0]]
+        df["Smoothed"] = ema
+        output.append(("Venice", df))
     
-    for p in smoothedValues:
-        plt.plot(p[1], label=p[0])
+    # Ouputs tuple in the form of [(City Name, Data Frame),(City Name, Data Frame),(City Name, Data Frame)]
+    return output
 
-    plt.show()
 
-    return ema
+    # for p in smoothedValues:
+    #     plt.plot(p[1], label=p[0])
+
+    # plt.show()
 
 def calculate_ema(data, LAGTIME, smoothing=2):
     ema = [sum(data[:LAGTIME]) / LAGTIME]
-    for mes in data[LAGTIME:]:
+    
+    for mes in data[1:]:
         ema.append((mes * (smoothing / (1 + LAGTIME))) + ema[-1] * (1 - (smoothing / (1 + LAGTIME))))
 
     return ema

@@ -112,14 +112,14 @@ def main():
 
 
     with row4_2, _lock:
-        st.header("Cool dates for Japan")
+        st.header("Interesting dates for Japan")
         st.markdown('''The concentration of Chlorophyll-a is tested in lakes to determine how much algae is in the lake. Our solution shows the relationship between human activities and algae bloom, through out the COVID-19 pandemic human activities became decreasing and in result the concentration of Chl-a began decreasing to understand the dates below you must understand this first:
         \n Any decrease of the concentration of CHL was caused because of the high reported COVID-19 cases which meant less human activity in the past two months of the CHL decrease date.
         \n On the other hand, any increase of the concentration of CHL was caused because of the decrease of the reported COVID-19 cases which meant more human activity in the past two months of the CHL increase date.
         ''')
         expander_1 = st.beta_expander("The largest drop of concentration reported at 2020-08-22 in Japan.")
         expander_1.write('The largest drop of concentration was reported in 2020-08-22 with a decrease value of -87.3 in Tokyo, and if we look at the month before the date 2020-08-22 we can see the increase of COVID cases in Japan during the month of June and July of 2020:')
-        button_1 = expander_1.button('Visualzie', key='3')
+        button_1 = expander_1.button('Visualize', key='3')
         button_1_end = expander_1.button('Stop Visualizing', key='3')
 
 
@@ -194,15 +194,15 @@ def main():
 
 
     with row6_2, _lock:
-        st.header("Cool dates for Italy")
+        st.header("Interesting dates for Italy")
         st.markdown('''The concentration of Chlorophyll-a is tested in lakes to determine how much algae is in the lake. Our solution shows the relationship between human activities and algae bloom, through out the COVID-19 pandemic human activities became decreasing and in result the concentration of Chl-a began decreasing to understand the dates below you must understand this first:
         \n Any decrease of the concentration of CHL was caused because of the high reported COVID-19 cases which meant less human activity in the past two months of the CHL decrease date.
         \n On the other hand, any increase of the concentration of CHL was caused because of the decrease of the reported COVID-19 cases which meant more human activity in the past two months of the CHL increase date.
         ''')
         expander_1 = st.beta_expander("The largest drop of concentration reported at 2020-08-22.")
         expander_1.write('The largest drop of Chl-a concentration was reported in 2021-03-06 with a decrease value of -79.630008 in Venice, and if we look at the months before the date 2021-03-06  we can see the increase of COVID cases in Italy during the months of January and February of 2021:')
-        button_2 = expander_1.button('Visualzie', key='12')
-        button_2_end = expander_1.button('Stop Visualzing', key='11')
+        button_2 = expander_1.button('Visualize', key='12')
+        button_2_end = expander_1.button('Stop Visualizing', key='11')
 
 
 
@@ -295,7 +295,7 @@ def main():
         st.plotly_chart(fig)
 
     with row8_2, _lock:
-        st.header("Cool dates for New York")
+        st.header("Interesting dates for New York")
         st.markdown('Coming soon...')
 
 if __name__ == '__main__':
