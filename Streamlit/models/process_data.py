@@ -4,6 +4,7 @@ from matplotlib import pyplot as plt
 
 
 def cleanChlData():
+
     df = pd.read_csv('data\chl.csv')
     df["Time"] = pd.to_datetime(df['Time'])
     geometry = [list(map(float, x.split(','))) for x in df.AOI]
@@ -28,7 +29,13 @@ def cleanAirQualityData():
     df = df[['time', 'measurement', 'eoSensor', 'inputData', 'colorCode']]
     return df
 
-
+def cleanActivityData():
+    japan_ac = pd.read_csv('data/japan_activity.csv')
+    japan_ac["time"] = pd.to_datetime(japan_ac['time'])
+    japan_ac['measurement']=pd.to_numeric(japan_ac['measurement'])
+    japan_ac = japan_ac[['time', 'measurement', 'colorCode']]
+    japan_ac = japan_ac.reset_index(drop=True)
+    return japan_ac
 
 def veniceData():
     df = cleanChlData()
@@ -47,7 +54,9 @@ def tokyoData():
 
     tokyo_air = cleanAirQualityData()
     tokyo_air = tokyo_air.reset_index(drop=True)
-    return tokyo_chl, tokyo_air, tokyo_df
+
+    japan_activity = cleanActivityData()
+    return tokyo_chl, tokyo_air, japan_activity, tokyo_df
 
 def newYorkData():
     df = cleanChlData()
@@ -83,8 +92,7 @@ def movingAverage():
 
 
     # Ouputs tuple in the form of [(City Name, Data Frame),(City Name, Data Frame),(City Name, Data Frame)]
-    print(type())
-    return d
+    return df
 
 
     # for p in smoothedValues:

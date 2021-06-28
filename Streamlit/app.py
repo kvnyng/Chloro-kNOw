@@ -11,7 +11,7 @@ import matplotlib.pyplot as plt
 import plotly.figure_factory as ff
 import plotly.express as px
 from models.process_data import tokyoData, veniceData, newYorkData, movingAverage
-
+import streamlit.components.v1 as components
 
 st.set_page_config(
         page_title="Nimbus Solution ",
@@ -21,7 +21,6 @@ st.set_page_config(
 
 matplotlib.use("agg")
 _lock = RendererAgg.lock
-
 
 sns.set_style('darkgrid')
 row0_spacer1, row0_1, row0_spacer2, row0_2, row0_spacer3 = st.beta_columns(
@@ -39,7 +38,6 @@ data_load_state.text('')
 
 def main():
     row0_1.title('Looking At The Bigger Picture')
-
     with row0_2:
         st.write('')
 
@@ -68,10 +66,11 @@ def main():
         data_load_state = st.text('Loading Tokyo data...')
         chl_df_tokyo = load_data()[0]
         air_df_tokyo = load_data()[1]
+        activity_df_japan = load_data()[2]
         data_load_state.text('')
 
 
-        st.dataframe(load_data()[2])
+        st.dataframe(load_data()[-1])
         st.markdown("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.")
 
 
@@ -139,15 +138,37 @@ def main():
         (.1, 1, .1, 1, .1))
 
     with row5_1, _lock:
+        st.header("Chlorophyll-a concentration map in Japan")
+        components.html('<iframe class="item" src="https://eodashboard.org/iframe?poi=JP01-N3a2"  width="600px" height="500px" frameBorder="0" scroll="no" style="overflow:hidden"></iframe>', height=500, width=1000)
+        st.markdown("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.")
+
+    with row5_2, _lock:
+        st.header("Recovery Proxy map in Japan")
+        components.html('<iframe class="item" src="https://eodashboard.org/iframe?poi=JP01-N8" width="600px" height="500px" frameBorder="0" scroll="no" style="overflow:hidden"></iframe>', height=500,width=1000)
+        st.markdown("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.")
+
+
+    st.write('')
+    row6_space1, row6_1, row6_space2, row6_2, row6_space3 = st.beta_columns(
+        (.1, 1, .1, 1, .1))
+
+    with row6_1, _lock:
         st.header("Air quality measurement in Japan")
         japan_air_fig=px.bar(air_df_tokyo,x='time',y='measurement')
         japan_air_fig.update_layout(title_x=0.5, xaxis_rangeslider_visible=True)
         japan_air_fig.update_yaxes(title_text='Air Quality Index')
         japan_air_fig.update_xaxes(title_text='Date')
         st.plotly_chart(japan_air_fig)
-    with row5_2, _lock:
-        pass
+        st.markdown("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.")
 
+    with row6_2, _lock:
+        st.header("Cars/Containers Acttivity in Japan")
+        japan_activity_fig = px.bar(activity_df_japan,x='time',y='measurement', color='colorCode')
+        japan_activity_fig.update_layout(title_x=0.5, xaxis_rangeslider_visible=True)
+        japan_activity_fig.update_yaxes(title_text='New Cases')
+        japan_activity_fig.update_xaxes(title_text='Date')
+        st.plotly_chart(japan_activity_fig)
+        st.markdown("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.")
 
 
 
