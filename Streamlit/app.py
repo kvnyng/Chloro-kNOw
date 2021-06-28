@@ -14,7 +14,7 @@ from models.process_data import tokyoData, veniceData, newYorkData, movingAverag
 import streamlit.components.v1 as components
 
 st.set_page_config(
-        page_title="Nimbus Solution ",
+        page_title="Chloro-kNOw Solution ",
         page_icon=":globe_with_meridians:",
         layout="wide")
 
@@ -42,7 +42,7 @@ def main():
         st.write('')
 
     row0_2.subheader(
-        'Solution by the [Nimbus Team](https://github.com/bykevinyang/Nimbus)')
+        'Solution by the [Chloro-kNOw Team](https://github.com/bykevinyang/Chloro-kNOw)')
 
     row1_spacer1, row1_1, row1_spacer2 = st.beta_columns((.1, 3.2, .1))
 
@@ -165,7 +165,7 @@ def main():
         st.header("Cars/Containers Acttivity in Japan")
         japan_activity_fig = px.bar(activity_df_japan,x='time',y='measurement', color='colorCode')
         japan_activity_fig.update_layout(title_x=0.5, xaxis_rangeslider_visible=True)
-        japan_activity_fig.update_yaxes(title_text='New Cases')
+        japan_activity_fig.update_yaxes(title_text='Car Density')
         japan_activity_fig.update_xaxes(title_text='Date')
         st.plotly_chart(japan_activity_fig)
         st.markdown("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.")
