@@ -214,7 +214,7 @@ def main():
         st.subheader('Meet the team')
         st.markdown('''● [Rami Janini](https://github.com/JaniniRami) (Head Developer)
 \n● [Kevin Yang](https://github.com/bykevinyang) (Developer + Writer)
-\n● [George Adams](https://github.com/george-adams1) (Developer)''')
+\n● [George Adamopoulos](https://github.com/george-adams1) (Developer)''')
 
 
 
