@@ -171,6 +171,40 @@ def main():
         st.markdown("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.")
 
 
+    st.write('')
+    row7_space1, row7_1, row7_space2, row7_2, row7_space3 = st.beta_columns(
+        (.1, 1, .1, 1, .1))
+
+    with row7_1, _lock:
+        st.header("How can you help?")
+        st.markdown('As seen in the plots above, our actions and activities strongly effects Algal Blooms in some way or another, To save our water and keep our environment clean we strongly suggest you to start taking the following actions in your daily life to reduce the damage done by us to water through algal blooms:')
+        expander_3 = st.beta_expander("Use Fewer Lawn Chemicals.")
+        expander_3.write('''● Never fertilizer before a forecasted rainstorm\n
+● Use pesticides and fertilizers sparingly. Always follow directions and never add more than the directions call for.\n
+● Consider switching to slow release and natural organic fertilizers instead of typical chemical fertilizers.\n
+● Make sure to use fertilizer with no or low phosphorus, as phosphorus causes algae growth. ''')
+
+        expander_4 = st.beta_expander("Dispose of Yard Waste Properly")
+        expander_4.write('''● Don’t leave yard waste in the street or sweep it into storm drains or streams.  Either bag it up for town pickup, take it to your local landfill, or re-use it as compost or mulch.\n
+● Create a compost pile with your yard waste and use the nutrient rich humus in your gardens or potted plants.\n
+● Use grass clippings or shredded leaves as mulch around shrubs and trees.  Mulch helps to suppress weeds and retain moisture. Mulch also contributes nutrients to the soil by gradually breaking down over time.\n
+●  piles of dirt or mulch being used in landscaping projects to avoid runoff.''')
+
+        expander_5 = st.beta_expander("Apply beneficial bacteria (For goverments and companies to do)")
+        expander_5.write('''● An effective way to prevent algae is by limiting its food source.
+    This can be accomplished by introducing desirable enzymes and bacteria (think probiotics) to your water through
+    a process called biological augmentation. These beneficial bacteria can help consume the excess pond nutrients that fuel
+    nuisance algae blooms and help facilitate the degradation of organic pollutants.''')
+
+    with row7_2, _lock:
+        st.header("Resources")
+        st.markdown('''● Chlorophyll-a concentration map and dataset: [EODashboard]("https://eodashboard.org/?indicator=N3")\n
+● COVID-19 cases data: [Our World in Data (OWID)]("https://github.com/owid/covid-19-data")\n
+● Air quality dataset: [EODashboard]("https://eodashboard.org/?indicator=N1&poi=JP01-N1")\n
+● Recovery proxy map dataset: [EODashboard]("https://eodashboard.org/?indicator=N8&poi=JP01-N8")\n
+● Cars and containers activity: [EODashboard]("https://eodashboard.org/?indicator=E9&poi=JP01-N")\n
+*All EODashboard data is provided by NASA, JAXA AND ESA.''')
+
 
 if __name__ == '__main__':
     main()
