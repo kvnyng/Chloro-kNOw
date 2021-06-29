@@ -47,8 +47,8 @@ def main():
     row1_spacer1, row1_1, row1_spacer2 = st.beta_columns((.1, 3.2, .1))
 
     with row1_1:
-        st.markdown("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.")
-
+        # st.markdown(" ale eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.")
+        st.markdown('''Chloro-kNOw is an online dashboard that relates factors that affect chlorophyll (Chl) concentrations in order to draw relationships between COVID-19 and its effects on Chl concentrations. With chloro-kNOw, we aim to raise awareness about daily actions that can lead to increases in algal blooms and mitigate them in order to keep our water clean for the generations to come.''')
     st.markdown("""---""")
     st.write('')
     row3_space1, row3_1, row3_space2, row3_2, row3_space3 = st.beta_columns(
@@ -71,8 +71,7 @@ def main():
 
 
         st.dataframe(load_data()[-1])
-        st.markdown("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.")
-
+        st.markdown('Chl-a is an indicator of phytoplankton abundance which fluctuates naturally with nutrient, solar irradiance, and water temperature, and so on. In coastal areas, Chl-a is commonly used as a proxy for water quality because it is strongly influenced by river runoff and human activities, such as the discharge of urban sewage and agriculture fertilizers.')
 
     with row3_2, _lock:
         st.header("Chlorophyll-a concentration in Japan")
@@ -92,15 +91,17 @@ def main():
         ax.set_ylabel('Measurement value (molarity)', fontsize=10)
         st.pyplot(fig)
 
+
     st.write('')
     row4_space1, row4_1, row4_space2, row4_2, row4_space3 = st.beta_columns(
         (.1, 1, .1, 1, .1))
 
     with row4_2, _lock:
         st.header("Interesting dates for Japan")
-        st.markdown('''The concentration of Chlorophyll-a is tested in lakes to determine how much algae is in the lake. Our solution shows the relationship between human activities and algae bloom, through out the COVID-19 pandemic human activities became decreasing and in result the concentration of Chl-a began decreasing to understand the dates below you must understand this first:
-        \n Any decrease of the concentration of CHL was caused because of the high reported COVID-19 cases which meant less human activity in the past two months of the CHL decrease date.
-        \n On the other hand, any increase of the concentration of CHL was caused because of the decrease of the reported COVID-19 cases which meant more human activity in the past two months of the CHL increase date.
+        st.markdown('''The concentration of Chlorophyll-a is tested in lakes to determine how much algae is in the lake. Our solution shows the relationship between human activities and algae bloom, throughout the COVID-19 pandemic human activities became decreasing and in result the concentration of Chl-a began decreasing to understand the dates below you must understand this first:
+        \n Some of the decrease of the concentration of CHL was caused because of the high reported COVID-19 cases which meant less human activity in the past two months of the CHL decrease date.
+        \n On the other hand, Some of the increase of the concentration of CHL was caused because of the decrease of the reported COVID-19 cases which meant more human activity in the past two months of the CHL increase date.
+        \n * COVID-19 is one of many links to algal blooms and it is not the main link, we can also consider it as a weak link because it doesn't always give us the expected results.
         ''')
         expander_1 = st.beta_expander("The largest drop of concentration reported at 2020-08-22 in Japan.")
         expander_1.write('The largest drop of concentration was reported in 2020-08-22 with a decrease value of -87.3 in Tokyo, and if we look at the month before the date 2020-08-22 we can see the increase of COVID cases in Japan during the month of June and July of 2020:')
@@ -120,18 +121,24 @@ def main():
             japan_covid_fig.update_yaxes(title_text='New Cases')
             japan_covid_fig.update_xaxes(title_text='Date')
             st.plotly_chart(japan_covid_fig)
+            st.markdown('This plot shows the new COVID-19 cases throughout the pandemic in Japan; in order to find relationships between COVID-19 cases and algal blooms through these plots.')
+
         elif button_1_end:
             japan_covid_fig=px.bar(covid19[covid19["location"]==country],x='date',y='new_cases')
             japan_covid_fig.update_layout(title_x=0.5, xaxis_rangeslider_visible=True)
             japan_covid_fig.update_yaxes(title_text='New Cases')
             japan_covid_fig.update_xaxes(title_text='Date')
             st.plotly_chart(japan_covid_fig)
+            st.markdown('This plot shows the new COVID-19 cases throughout the pandemic in Japan; in order to find relationships between COVID-19 cases and algal blooms through these plots.')
+
         else:
             japan_covid_fig=px.bar(covid19[covid19["location"]==country],x='date',y='new_cases')
             japan_covid_fig.update_layout(title_x=0.5, xaxis_rangeslider_visible=True)
             japan_covid_fig.update_yaxes(title_text='New Cases')
             japan_covid_fig.update_xaxes(title_text='Date')
             st.plotly_chart(japan_covid_fig)
+            st.markdown('This plot shows the new COVID-19 cases throughout the pandemic in Japan; in order to find relationships between COVID-19 cases and algal blooms through these plots.')
+
 
     st.write('')
     row5_space1, row5_1, row5_space2, row5_2, row5_space3 = st.beta_columns(
@@ -140,13 +147,12 @@ def main():
     with row5_1, _lock:
         st.header("Chlorophyll-a concentration map in Japan")
         components.html('<iframe class="item" src="https://eodashboard.org/iframe?poi=JP01-N3a2"  width="600px" height="500px" frameBorder="0" scroll="no" style="overflow:hidden"></iframe>', height=500, width=1000)
-        st.markdown("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.")
-
+        # st.markdown("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.")
+        st.markdown('The Chl-a indicator map in Tokyo Bay are displayed as an example of the coastal water-quality changes near the Japanese biggest city, Tokyo. ')
     with row5_2, _lock:
         st.header("Recovery Proxy map in Japan")
         components.html('<iframe class="item" src="https://eodashboard.org/iframe?poi=JP01-N8" width="600px" height="500px" frameBorder="0" scroll="no" style="overflow:hidden"></iframe>', height=500,width=1000)
-        st.markdown("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.")
-
+        st.markdown('As businesses closed and stay-at-home orders were enacted to slow the spread of the COVID-19 pandemic, cities across the world have seen reductions in automobile traffic')
 
     st.write('')
     row6_space1, row6_1, row6_space2, row6_2, row6_space3 = st.beta_columns(
@@ -159,8 +165,7 @@ def main():
         japan_air_fig.update_yaxes(title_text='Air Quality Index')
         japan_air_fig.update_xaxes(title_text='Date')
         st.plotly_chart(japan_air_fig)
-        st.markdown("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.")
-
+        st.markdown('In an effort to mitigate the spread of the novel coronavirus, government and public health officials have enacted various social distancing practices and other measures to limit human contact, at times placing entire countries on lockdown. As human behavior has changed during the pandemic, ongoing measurements from Earth observing instruments have detected concurrent changes in environmental factors, such as a drop in the air pollutant nitrogen dioxide (NO2). ')
     with row6_2, _lock:
         st.header("Cars/Containers Acttivity in Japan")
         japan_activity_fig = px.bar(activity_df_japan,x='time',y='measurement', color='colorCode')
@@ -168,7 +173,8 @@ def main():
         japan_activity_fig.update_yaxes(title_text='Car Density')
         japan_activity_fig.update_xaxes(title_text='Date')
         st.plotly_chart(japan_activity_fig)
-        st.markdown("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.")
+        st.markdown('From November 2019 to June 2020, the Japanese Aerospace Exploration Agency’s (JAXA) ALOS-2 satellite observed the density of car containers at Shimpomachi Terminal in the port of Nagoya to monitor the condition of industrial trade. During the novel coronavirus pandemic, ALOS-2 observations show that shipments of new cars decreased. ')
+        # st.markdown("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.")
 
 
     st.write('')
@@ -198,12 +204,18 @@ def main():
 
     with row7_2, _lock:
         st.header("Resources")
-        st.markdown('''● Chlorophyll-a concentration map and dataset: [EODashboard]("https://eodashboard.org/?indicator=N3")\n
-● COVID-19 cases data: [Our World in Data (OWID)]("https://github.com/owid/covid-19-data")\n
-● Air quality dataset: [EODashboard]("https://eodashboard.org/?indicator=N1&poi=JP01-N1")\n
-● Recovery proxy map dataset: [EODashboard]("https://eodashboard.org/?indicator=N8&poi=JP01-N8")\n
-● Cars and containers activity: [EODashboard]("https://eodashboard.org/?indicator=E9&poi=JP01-N")\n
+        st.markdown('''● Chlorophyll-a concentration map and dataset: [EODashboard](https://eodashboard.org/?indicator=N3")\n
+● COVID-19 cases data: [Our World in Data (OWID)](https://github.com/owid/covid-19-data)\n
+● Air quality dataset: [EODashboard](https://eodashboard.org/?indicator=N1&poi=JP01-N1)\n
+● Recovery proxy map dataset: [EODashboard](https://eodashboard.org/?indicator=N8&poi=JP01-N8)\n
+● Cars and containers activity: [EODashboard](https://eodashboard.org/?indicator=E9&poi=JP01-N)\n
 *All EODashboard data is provided by NASA, JAXA AND ESA.''')
+
+        st.subheader('Meet the team')
+        st.markdown('''● [Rami Janini](https://github.com/JaniniRami) (Head Developer)
+\n● [Kevin Yang](https://github.com/bykevinyang) (Developer + Writer)
+\n● [George Adams](https://github.com/george-adams1) (Developer)''')
+
 
 
 if __name__ == '__main__':
