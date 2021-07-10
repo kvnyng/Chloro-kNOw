@@ -60,4 +60,5 @@ Our solution can be integrated as a separate page from the indicators, allowing 
  # Authors
  * [Rami Janini](https://github.com/JaniniRami) (Head Developer)
  * [Kevin Yang](https://github.com/bykevinyang) (Developer + Writer)
+ * [Adrien Wehrle](https://github.com/AdrienWehrle) (Developer)
  * [George Adamopoulos](https://github.com/george-adams1) (Developer)
